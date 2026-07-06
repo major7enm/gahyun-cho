@@ -1,0 +1,436 @@
+/* ============================================================
+   GAHYUN CHO — Official Website (1차 시안)
+   디자인 레퍼런스: jiyoon-lee.com
+   팔레트: 차콜 #1e1e1e / 블랙 #050505 / 화이트 / 활성회색 #c9c9c9
+   폰트: Cinzel(각인풍 세리프 캡스) · Noto Serif KR · Noto Sans KR
+   ============================================================ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-charcoal: #1e1e1e;
+  --bg-black: #050505;
+  --text-white: #ffffff;
+  --text-dim: #c9c9c9;
+  --text-faint: #8f8f8f;
+  --font-caps: 'Cinzel', 'Noto Serif KR', serif;
+  --font-serif-kr: 'Noto Serif KR', serif;
+  --font-body: 'Noto Sans KR', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-charcoal);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ---------- 헤더 / 내비게이션 ---------- */
+header {
+  position: relative;
+  z-index: 100;
+  height: 70px;
+  background: transparent;
+}
+
+nav.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 56px;
+  height: 70px;
+}
+
+nav.main-nav .nav-item { position: relative; }
+
+nav.main-nav a.nav-link {
+  font-family: var(--font-caps);
+  font-size: 14px;
+  letter-spacing: 2.5px;
+  color: var(--text-white);
+  padding: 14px 4px;
+  display: inline-block;
+  transition: color .25s;
+}
+
+nav.main-nav a.nav-link:hover { color: var(--text-dim); }
+nav.main-nav .nav-item.active > a.nav-link { color: var(--text-dim); }
+
+/* 드롭다운 (MEDIA) */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 10, .92);
+  min-width: 150px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .25s;
+  padding: 6px 0;
+}
+.nav-item:hover .dropdown { opacity: 1; visibility: visible; }
+.dropdown a {
+  display: block;
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--text-white);
+  padding: 10px 22px;
+  white-space: nowrap;
+}
+.dropdown a:hover { color: var(--text-dim); }
+
+/* ---------- 본문 공통 ---------- */
+main { flex: 1; }
+
+.page-title {
+  font-family: var(--font-caps);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: var(--text-white);
+}
+
+/* ---------- 푸터 ---------- */
+footer {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 60px;
+  font-family: var(--font-caps);
+}
+footer .copyright {
+  font-size: 12.5px;
+  letter-spacing: 1.5px;
+  color: var(--text-white);
+}
+footer .social { display: flex; gap: 26px; }
+footer .social a {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  color: var(--text-white);
+}
+footer .social a:hover { color: var(--text-dim); }
+
+/* ============================================================
+   HOME — 풀스크린 히어로
+   상반신 사진의 검정 배경을 페이지 블랙과 마스크로 융합
+   ============================================================ */
+body.home { background: var(--bg-black); }
+
+.hero {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--bg-black);
+  overflow: hidden;
+}
+
+.hero img {
+  height: 100vh;
+  width: auto;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to right, transparent 0, #000 14%, #000 86%, transparent 100%);
+}
+
+/* 좌측 시그니처 텍스트 */
+.hero-signature {
+  position: fixed;
+  left: 7vw;
+  bottom: 16vh;
+  z-index: 10;
+}
+.hero-signature h1 {
+  font-family: var(--font-caps);
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 8px;
+  color: var(--text-white);
+  line-height: 1.5;
+}
+.hero-signature p {
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: var(--text-faint);
+  margin-top: 10px;
+}
+
+body.home header { position: fixed; top: 0; left: 0; right: 0; }
+body.home footer { position: fixed; bottom: 0; left: 0; right: 0; }
+
+/* ============================================================
+   ABOUT — 배경사진 + 오버레이 + 중앙 칼럼
+   ============================================================ */
+body.about-page {
+  background:
+    linear-gradient(rgba(8, 8, 8, .84), rgba(8, 8, 8, .84)),
+    url('../assets/photos/portrait-02-white-dress.jpg') center 30% / cover no-repeat fixed;
+}
+
+.about-wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 90px 20px 120px;
+}
+.about-wrap .about-name {
+  font-family: var(--font-caps);
+  font-size: 22px;
+  letter-spacing: 5px;
+  margin-bottom: 8px;
+}
+.about-wrap .about-role {
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  margin-bottom: 54px;
+}
+.about-wrap p {
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: rgba(255, 255, 255, .92);
+  margin-bottom: 28px;
+  word-break: keep-all;
+}
+
+/* ============================================================
+   CONCERTS — 연도 헤딩 + 날짜/공연명/장소 리스트
+   ============================================================ */
+body.concerts-page {
+  background:
+    linear-gradient(rgba(10, 10, 10, .88), rgba(10, 10, 10, .88)),
+    url('../assets/photos/portrait-02-seoulspring-2026.jpg') center 12% / cover no-repeat fixed;
+}
+
+.concert .poster {
+  display: block;
+  margin-top: 14px;
+  width: 190px;
+}
+.concert .poster img {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, .15);
+  transition: opacity .3s;
+}
+.concert .poster:hover img { opacity: .8; }
+
+.concerts-wrap {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 70px 20px 120px;
+}
+.concerts-wrap .year {
+  font-family: var(--font-caps);
+  font-size: 40px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  margin: 70px 0 36px;
+}
+.concerts-wrap .year:first-child { margin-top: 0; }
+
+.concert {  margin-bottom: 34px; }
+.concert .date {
+  font-family: var(--font-caps);
+  font-size: 15px;
+  letter-spacing: 2.5px;
+  color: var(--text-white);
+}
+.concert .title {
+  font-family: var(--font-serif-kr);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, .95);
+  margin-top: 4px;
+  word-break: keep-all;
+}
+.concert .venue {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+
+/* ============================================================
+   PHOTOS — 정사각 3열 그리드 + 라이트박스
+   ============================================================ */
+.gallery-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 90px 20px 120px;
+}
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+.gallery a {
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  display: block;
+}
+.gallery img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease, opacity .4s;
+}
+.gallery a:hover img { transform: scale(1.04); opacity: .85; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, .93);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox img { max-width: 88vw; max-height: 88vh; object-fit: contain; }
+
+/* ============================================================
+   VIDEOS — 유튜브 임베드
+   ============================================================ */
+.videos-wrap {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 90px 20px 120px;
+}
+.video-item { margin-bottom: 70px; }
+.video-item .frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.video-item iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-item .caption {
+  font-family: var(--font-serif-kr);
+  font-size: 15.5px;
+  color: rgba(255, 255, 255, .92);
+  margin-top: 14px;
+  letter-spacing: .5px;
+}
+.video-item .sub {
+  font-size: 13px;
+  color: var(--text-dim);
+  margin-top: 3px;
+}
+
+/* ============================================================
+   PRESS — 인용문 리스트
+   ============================================================ */
+.press-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 100px 20px 140px;
+}
+.press-item { margin-bottom: 80px; text-align: center; }
+.press-item blockquote {
+  font-family: var(--font-serif-kr);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, .95);
+  word-break: keep-all;
+}
+.press-item blockquote::before { content: '\201C'; }
+.press-item blockquote::after { content: '\201D'; }
+.press-item .source {
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  color: var(--text-dim);
+  margin-top: 18px;
+}
+.press-item .source a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   CONTACT — 배경사진 + 우측 텍스트 칼럼
+   ============================================================ */
+body.contact-page {
+  background:
+    linear-gradient(rgba(12, 12, 12, .78), rgba(12, 12, 12, .78)),
+    url('../assets/photos/portrait-03-floral-garden-2025.jpg') left center / cover no-repeat fixed;
+}
+
+.contact-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 110px 20px 140px;
+  display: flex;
+  justify-content: flex-end;
+}
+.contact-inner { width: 520px; max-width: 100%; }
+.contact-inner .page-title { margin-bottom: 70px; }
+
+.contact-block { margin-bottom: 64px; }
+.contact-block h3 {
+  font-family: var(--font-serif-kr);
+  font-size: 19px;
+  font-weight: 500;
+  margin-bottom: 18px;
+  word-break: keep-all;
+}
+.contact-block p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, .9);
+}
+.contact-block a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   반응형
+   ============================================================ */
+@media (max-width: 860px) {
+  nav.main-nav { gap: 26px; }
+  nav.main-nav a.nav-link { font-size: 12px; letter-spacing: 1.5px; }
+  footer { flex-direction: column; gap: 14px; padding: 22px 20px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .hero img {
+    height: auto;
+    width: 100vw;
+    max-height: 100vh;
+    -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 78%, transparent 100%);
+  }
+  .hero { align-items: flex-start; }
+  .hero-signature { left: 24px; bottom: 12vh; }
+  .hero-signature h1 { font-size: 20px; letter-spacing: 5px; }
+  .contact-wrap { justify-content: center; }
+  .concerts-wrap .year { font-size: 32px; }
+}
+
+@media (max-width: 520px) {
+  nav.main-nav { gap: 16px; }
+  nav.main-nav a.nav-link { font-size: 10.5px; letter-spacing: 1px; }
+  .gallery { grid-template-columns: 1fr; }
+  .press-item blockquote { font-size: 17px; }
+}

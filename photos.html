@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PHOTOS | GAHYUN CHO</title>
+<meta name="description" content="바이올리니스트 조가현 프로필 사진.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <nav class="main-nav">
+    <div class="nav-item"><a class="nav-link" href="index.html">HOME</a></div>
+    <div class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></div>
+    <div class="nav-item"><a class="nav-link" href="concerts.html">CONCERTS</a></div>
+    <div class="nav-item active">
+      <a class="nav-link" href="photos.html">MEDIA</a>
+      <div class="dropdown">
+        <a href="photos.html">PHOTOS</a>
+        <a href="videos.html">VIDEOS</a>
+        <a href="press.html">PRESS</a>
+      </div>
+    </div>
+    <div class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></div>
+  </nav>
+</header>
+
+<main>
+  <div class="gallery-wrap">
+    <div class="gallery">
+      <a href="assets/photos/portrait-01-seoulspring-2025.jpg" data-lightbox>
+        <img src="assets/photos/portrait-01-seoulspring-2025.jpg" alt="조가현 프로필 — 바이올린과 함께" loading="lazy">
+      </a>
+      <a href="assets/photos/portrait-02-white-dress.jpg" data-lightbox>
+        <img src="assets/photos/portrait-02-white-dress.jpg" alt="조가현 프로필 — 흰 드레스 스튜디오 포트레이트" loading="lazy">
+      </a>
+      <a href="assets/photos/portrait-03-floral-garden-2025.jpg" data-lightbox>
+        <img src="assets/photos/portrait-03-floral-garden-2025.jpg" alt="조가현 — 정원에서" loading="lazy">
+      </a>
+      <a href="assets/photos/portrait-04-garden.jpg" data-lightbox>
+        <img src="assets/photos/portrait-04-garden.jpg" alt="조가현 포트레이트 — 야자수 정원" loading="lazy">
+      </a>
+      <a href="assets/photos/ensemble-01-duo-with-pianist.jpg" data-lightbox>
+        <img src="assets/photos/ensemble-01-duo-with-pianist.jpg" alt="조가현 리사이틀 실황 — 피아니스트와 듀오" loading="lazy">
+      </a>
+    </div>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox"><img src="" alt=""></div>
+
+<footer>
+  <div class="copyright">&copy; 2026 GAHYUN CHO. ALL RIGHTS RESERVED.</div>
+  <div class="social">
+    <a href="#" title="추후 실제 계정 연결">INSTAGRAM</a>
+    <a href="#" title="추후 실제 계정 연결">FACEBOOK</a>
+    <a href="contact.html">EMAIL</a>
+  </div>
+</footer>
+
+<script>
+const lb = document.getElementById('lightbox');
+const lbImg = lb.querySelector('img');
+document.querySelectorAll('[data-lightbox]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    lbImg.src = a.getAttribute('href');
+    lb.classList.add('open');
+  });
+});
+lb.addEventListener('click', () => lb.classList.remove('open'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') lb.classList.remove('open'); });
+</script>
+
+</body>
+</html>
