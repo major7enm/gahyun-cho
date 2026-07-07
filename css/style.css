@@ -407,6 +407,202 @@ body.contact-page {
 .contact-block a { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ============================================================
+   JOURNAL — 글·시 목록 / 본문 / 댓글(화답)
+   읽기에 집중하도록 배경 사진 없이 차콜 유지
+   ============================================================ */
+.journal-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 90px 20px 140px;
+}
+
+.journal-head { text-align: center; margin-bottom: 90px; }
+.journal-tagline {
+  font-family: var(--font-serif-kr);
+  font-size: 14.5px;
+  color: var(--text-dim);
+  letter-spacing: 1px;
+  margin-top: 18px;
+  word-break: keep-all;
+}
+
+.journal-empty {
+  text-align: center;
+  font-size: 14.5px;
+  color: var(--text-dim);
+}
+
+/* 목록 */
+.journal-item { margin-bottom: 64px; }
+.journal-item-meta {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  font-family: var(--font-caps);
+  font-size: 11.5px;
+  letter-spacing: 2.5px;
+  color: var(--text-faint);
+}
+.journal-item-category { color: var(--text-dim); }
+.journal-item-title {
+  display: inline-block;
+  font-family: var(--font-serif-kr);
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, .95);
+  margin-top: 10px;
+  word-break: keep-all;
+  transition: color .25s;
+}
+a.journal-item-title:hover { color: var(--text-dim); }
+.journal-item-excerpt {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-faint);
+  margin-top: 8px;
+  word-break: keep-all;
+}
+
+/* 본문 */
+.journal-post { padding-top: 10px; }
+.journal-post-title {
+  font-family: var(--font-serif-kr);
+  font-size: 27px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 12px 0 54px;
+  word-break: keep-all;
+}
+.journal-post-body p {
+  font-family: var(--font-serif-kr);
+  font-size: 16.5px;
+  line-height: 2.05;
+  color: rgba(255, 255, 255, .92);
+  margin-bottom: 34px;
+  word-break: keep-all;
+}
+
+.journal-back {
+  margin-top: 70px;
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+}
+.journal-back a:hover { color: var(--text-dim); }
+
+/* 댓글 (화답) */
+.comments {
+  margin-top: 90px;
+  padding-top: 54px;
+  border-top: 1px solid rgba(255, 255, 255, .14);
+}
+.comments-title {
+  font-family: var(--font-caps);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 4px;
+}
+.comments-lead {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  margin-top: 12px;
+  word-break: keep-all;
+}
+.comments-status {
+  font-size: 13.5px;
+  color: var(--text-faint);
+  margin-top: 34px;
+}
+
+.comments-list { margin-top: 34px; }
+.comment {
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+.comment-meta {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+}
+.comment-name {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .95);
+}
+.comment-date { font-size: 12px; color: var(--text-faint); }
+.comment-body {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, .88);
+  margin-top: 8px;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.comment-form { margin-top: 40px; }
+.comment-form input[type="text"],
+.comment-form textarea {
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .18);
+  color: var(--text-white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 0;
+  transition: border-color .25s;
+}
+.comment-form input[type="text"] { max-width: 260px; }
+.comment-form textarea { resize: vertical; }
+.comment-form input:focus,
+.comment-form textarea:focus {
+  outline: none;
+  border-color: rgba(255, 255, 255, .5);
+}
+.comment-form ::placeholder { color: var(--text-faint); }
+
+/* honeypot — 사람 눈에는 보이지 않는 스팸 방지 칸 */
+.comment-form .hp-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.comment-form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.comment-form .form-note {
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+.comment-form button {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .45);
+  color: var(--text-white);
+  font-family: var(--font-caps);
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  padding: 11px 30px;
+  cursor: pointer;
+  transition: background .25s, color .25s;
+}
+.comment-form button:hover:not(:disabled) {
+  background: var(--text-white);
+  color: var(--bg-black);
+}
+.comment-form button:disabled { opacity: .5; cursor: default; }
+
+/* ============================================================
    반응형
    ============================================================ */
 @media (max-width: 860px) {
@@ -426,6 +622,9 @@ body.contact-page {
   .hero-signature h1 { font-size: 20px; letter-spacing: 5px; }
   .contact-wrap { justify-content: center; }
   .concerts-wrap .year { font-size: 32px; }
+  .journal-wrap { padding-top: 60px; }
+  .journal-post-title { font-size: 23px; }
+  .journal-post-body p { font-size: 15.5px; }
 }
 
 @media (max-width: 520px) {

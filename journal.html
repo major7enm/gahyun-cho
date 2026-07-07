@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>JOURNAL | GAHYUN CHO</title>
+<meta name="description" content="바이올리니스트 조가현의 글과 사유. 시, 단상, 음악에 대한 기록.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="journal-page">
+
+<header>
+  <nav class="main-nav">
+    <div class="nav-item"><a class="nav-link" href="index.html">HOME</a></div>
+    <div class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></div>
+    <div class="nav-item"><a class="nav-link" href="concerts.html">CONCERTS</a></div>
+    <div class="nav-item active"><a class="nav-link" href="journal.html">JOURNAL</a></div>
+    <div class="nav-item">
+      <a class="nav-link" href="photos.html">MEDIA</a>
+      <div class="dropdown">
+        <a href="photos.html">PHOTOS</a>
+        <a href="videos.html">VIDEOS</a>
+        <a href="press.html">PRESS</a>
+      </div>
+    </div>
+    <div class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></div>
+  </nav>
+</header>
+
+<main>
+  <div class="journal-wrap">
+    <div class="journal-head">
+      <h1 class="page-title">JOURNAL</h1>
+      <p class="journal-tagline">음악과 삶 사이에서 건져 올린 글과 시</p>
+    </div>
+    <div id="journal-list"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="copyright">&copy; 2026 GAHYUN CHO. ALL RIGHTS RESERVED.</div>
+  <div class="social">
+    <a href="#" title="추후 실제 계정 연결">INSTAGRAM</a>
+    <a href="#" title="추후 실제 계정 연결">FACEBOOK</a>
+    <a href="contact.html">EMAIL</a>
+  </div>
+</footer>
+
+<script src="js/journal-posts.js"></script>
+<script>
+(function () {
+  var listEl = document.getElementById('journal-list');
+  var posts = window.JOURNAL_POSTS || [];
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  if (!posts.length) {
+    listEl.appendChild(el('p', 'journal-empty', '아직 올라온 글이 없습니다.'));
+    return;
+  }
+
+  posts.forEach(function (post) {
+    var item = el('article', 'journal-item');
+    var meta = el('div', 'journal-item-meta');
+    meta.appendChild(el('span', 'journal-item-category', post.category));
+    meta.appendChild(el('span', 'journal-item-date', post.date));
+
+    var titleLink = el('a', 'journal-item-title', post.title);
+    titleLink.href = 'journal-post.html?id=' + encodeURIComponent(post.id);
+
+    var firstParagraph = (post.body && post.body[0]) ? post.body[0].split('\n')[0] : '';
+    var excerptText = firstParagraph.length > 70 ? firstParagraph.slice(0, 70) + '…' : firstParagraph;
+
+    item.appendChild(meta);
+    item.appendChild(titleLink);
+    item.appendChild(el('p', 'journal-item-excerpt', excerptText));
+    listEl.appendChild(item);
+  });
+})();
+</script>
+
+</body>
+</html>

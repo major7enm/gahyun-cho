@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>JOURNAL | GAHYUN CHO</title>
+<meta name="description" content="바이올리니스트 조가현의 글과 사유.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500&family=Noto+Sans+KR:wght@300;400;500&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="journal-page">
+
+<header>
+  <nav class="main-nav">
+    <div class="nav-item"><a class="nav-link" href="index.html">HOME</a></div>
+    <div class="nav-item"><a class="nav-link" href="about.html">ABOUT</a></div>
+    <div class="nav-item"><a class="nav-link" href="concerts.html">CONCERTS</a></div>
+    <div class="nav-item active"><a class="nav-link" href="journal.html">JOURNAL</a></div>
+    <div class="nav-item">
+      <a class="nav-link" href="photos.html">MEDIA</a>
+      <div class="dropdown">
+        <a href="photos.html">PHOTOS</a>
+        <a href="videos.html">VIDEOS</a>
+        <a href="press.html">PRESS</a>
+      </div>
+    </div>
+    <div class="nav-item"><a class="nav-link" href="contact.html">CONTACT</a></div>
+  </nav>
+</header>
+
+<main>
+  <div class="journal-wrap">
+
+    <article id="post-article" class="journal-post"></article>
+
+    <section id="comments-app" class="comments" data-post-id="">
+      <h2 class="comments-title">COMMENTS</h2>
+      <p class="comments-lead">글을 읽고 마음이 머물렀다면, 짧은 화답을 남겨 주세요.</p>
+      <p class="comments-status"></p>
+      <div class="comments-list"></div>
+      <form class="comment-form" autocomplete="off">
+        <input type="text" name="name" maxlength="20" placeholder="이름 (선택)">
+        <textarea name="message" maxlength="800" rows="4" placeholder="내용을 입력해 주세요" required></textarea>
+        <input type="text" name="website" class="hp-field" tabindex="-1" aria-hidden="true">
+        <div class="comment-form-actions">
+          <span class="form-note"></span>
+          <button type="submit">남기기</button>
+        </div>
+      </form>
+    </section>
+
+    <p class="journal-back"><a href="journal.html">&larr; JOURNAL</a></p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="copyright">&copy; 2026 GAHYUN CHO. ALL RIGHTS RESERVED.</div>
+  <div class="social">
+    <a href="#" title="추후 실제 계정 연결">INSTAGRAM</a>
+    <a href="#" title="추후 실제 계정 연결">FACEBOOK</a>
+    <a href="contact.html">EMAIL</a>
+  </div>
+</footer>
+
+<script src="js/journal-posts.js"></script>
+<script>
+(function () {
+  var article = document.getElementById('post-article');
+  var commentsApp = document.getElementById('comments-app');
+  var posts = window.JOURNAL_POSTS || [];
+  var id = new URLSearchParams(location.search).get('id');
+  var post = null;
+  for (var i = 0; i < posts.length; i++) {
+    if (posts[i].id === id) { post = posts[i]; break; }
+  }
+
+  function el(tag, className, text) {
+    var node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  if (!post) {
+    var notice = el('p', 'journal-empty', '글을 찾을 수 없습니다.');
+    article.appendChild(notice);
+    commentsApp.style.display = 'none';
+    return;
+  }
+
+  document.title = post.title + ' | GAHYUN CHO';
+
+  var meta = el('div', 'journal-item-meta');
+  meta.appendChild(el('span', 'journal-item-category', post.category));
+  meta.appendChild(el('span', 'journal-item-date', post.date));
+  article.appendChild(meta);
+  article.appendChild(el('h1', 'journal-post-title', post.title));
+
+  var body = el('div', 'journal-post-body');
+  (post.body || []).forEach(function (paragraph) {
+    var p = document.createElement('p');
+    var lines = String(paragraph).split('\n');
+    lines.forEach(function (line, index) {
+      if (index > 0) p.appendChild(document.createElement('br'));
+      p.appendChild(document.createTextNode(line));
+    });
+    body.appendChild(p);
+  });
+  article.appendChild(body);
+
+  commentsApp.setAttribute('data-post-id', post.id);
+})();
+</script>
+<script src="js/firebase-config.js"></script>
+<script src="js/comments.js"></script>
+
+</body>
+</html>
